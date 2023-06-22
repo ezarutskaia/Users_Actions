@@ -1,4 +1,5 @@
 import pandas as pd
+from urllib.parse import parse_qsl
 
 dictionary = []
 
@@ -8,7 +9,8 @@ while True:
     line = file1.readline()
     if not line:
         break
-    dictionary.append(dict(subString.split("=") for subString in line.split("&")))
+    line = line.replace('\n','')
+    dictionary.append(dict(parse_qsl(line)))
 
 file1.close
 
