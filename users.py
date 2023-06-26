@@ -1,9 +1,10 @@
 import pandas as pd
 from urllib.parse import parse_qsl
+from mysql.connector import connect, Error
 
 dictionary = []
 
-file1 = open("C:/dev/python/source/bigfiles/users1.txt", "r")
+file1 = open("C:/dev/python/source/bigfiles/users.txt", "r")
 
 while True:
     line = file1.readline()
@@ -26,4 +27,22 @@ df['lot'] = df['lot'].map(search)
 
 df = df.drop(columns='location')
 
-print(df.info())
+try:
+    with connect(
+        host="localhost",
+        user="root",
+        password="secret",
+        database="Users_Actions",
+        port="4306",
+    ) as connection:
+
+        with connection.cursor(buffered=True) as cursor:
+            for ind in df.index:
+                query = "INSERT INTO Users (uuid, ip, page, user_agent, hash, code, lot, lng, city) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+                cursor.execute(query, (df['uuid'][ind], df['ip'][ind], df['page'][ind], df['user_agent'][ind], df['hash'][ind], df['code'][ind], df['lot'][ind], df['lng'][ind], df['city'][ind] ))
+                connection.commit()
+
+except Error as e:
+    print('Error:',e)
+
+#print(df.info())
