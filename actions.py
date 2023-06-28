@@ -3,6 +3,10 @@ from urllib.parse import parse_qsl
 from mysql.connector import connect, Error
 import sys
 
+if len(sys.argv) < 2:
+    print("введите name")
+    exit()
+
 name = sys.argv[1]
 
 dictionary = []
