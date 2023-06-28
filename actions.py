@@ -1,10 +1,13 @@
 import pandas as pd
 from urllib.parse import parse_qsl
 from mysql.connector import connect, Error
+import sys
+
+name = sys.argv[1]
 
 dictionary = []
 
-file1 = open("C:/dev/python/source/bigfiles/actions1.txt", "r")
+file1 = open("C:/dev/python/source/bigfiles/" + name, "r")
 
 while True:
     line = file1.readline()
