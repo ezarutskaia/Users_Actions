@@ -2,6 +2,7 @@ import pandas as pd
 from urllib.parse import parse_qsl
 import datetime
 import numpy as np
+import matplotlib.pyplot as plt
 
 dictionary = []
 
@@ -27,4 +28,7 @@ new['diff_sec'] = new['t_diff'].dt.total_seconds()
 
 p026 = np.percentile(new['diff_sec'], 0.26)
 
-print()
+plt.plot(new['diff_sec'])
+#plt.show()
+
+print(p026)
