@@ -1,9 +1,9 @@
 import os
 
-filesize = 120 * 5
+filesize = 1024 * 1024 * 50
 fileNumber = 1
 
-fileSource = open("C:/dev/python/source/bigfiles/actions1.txt", "r")
+fileSource = open("C:/dev/python/source/bigfiles/actions.txt", "r")
 
 while True:
     line = fileSource.readline()
